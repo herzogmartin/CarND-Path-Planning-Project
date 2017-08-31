@@ -115,12 +115,12 @@ is reduced by 1 m/s to fall back. It the time-gap is below 0.5s than `ego_target
 is reduced by another 2 m/s to fall back faster (so in total with 3 m/s) and the 
 flag `ego_lane_emergency` is set to allow higher decelerations.
 
-###Lane Change
+### Lane Change
 The goal is to do a lane change to the fastest lane if the speed on the current lane is too slow.
 
 Therefore the minimum speed per lane of all cars from the fusion which are in front of the ego, is is calculated (lines 351 - 378). From this the fastest lane index `fast_lane` is calculated (lines 392 - 397). A lane change is initiated if there is another car within a timegap of 3s in the ego lane and the target lane is not the fastest lane (line 402) . The lane change is only initiated to lanes if the lateral distance is not above 4.1 m (width of one lane is 4m). Otherwise the nearer lane is set to `fast_lane` before (lines 404 - 411). This ensures that the lanes are changes one by one. Before the lane change is performed, it is checked, that there is enough space in `fast_lane` (lines 417 - 426). In order to perform the lane change `targetLane` is set to `fast_lane`. The spline interpolation which ensures to follow a lane smoothly, also ensures, that the lane change is smooth. It is necessary that the distance between the spline points `DIST_SPLINE_PTS` is not set too small (default 30m). If it's too small the lane change would be very aggressive. 
 
-###Open Points
+### Open Points
 The following open points are known and can be addressed for further improvement:
 
 * The lane change is not aborted or an emergency brake is performed if a lane change of another car is done at the same time .
